@@ -1,17 +1,17 @@
 <?php
-// Mulai session di paling atas
+
 session_start();
 
-// Koneksi database
+
 require_once '../../../config/koneksi.php';
 
-// Cek login admin
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../../../login.php");
     exit;
 }
 
-// Tangkap data user dari session
+
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $role = $_SESSION['role'];
@@ -143,15 +143,21 @@ $result = mysqli_query($conn, $query);
                     <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><img src="/pesona_jateng/assets/img/<?= htmlspecialchars($row['gambar']) ?>" class="thumb" alt=""></td>
+                            <td><img src="../galeri/img/<?= htmlspecialchars($row['gambar']) ?>" class="thumb" alt=""></td>
                             <td><?= htmlspecialchars($row['nama_wisata']) ?></td>
                             <td><?= htmlspecialchars($row['lokasi']) ?></td>
                             <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
                             <td><?= htmlspecialchars($row['rating']) ?></td>
                             <td><?= htmlspecialchars($row['tanggal_ditambahkan']) ?></td>
                             <td class="action-btn">
-                                <a href="detail_wisata.php?id=<?= $row['id_wisata'] ?>" class="btn-detail">Detail</a>
-                            </td>
+                           <a href="detail_wisata.php?id=<?= $row['id_wisata'] ?>" class="btn-detail">Detail</a>
+                         <a href="hapus_wisata.php?id=<?= $row['id_wisata'] ?>" 
+                             class="btn-warning"
+                             onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                          Hapus
+                                                 </a>
+                                                            </td>
+
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>

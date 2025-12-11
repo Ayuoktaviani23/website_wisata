@@ -116,10 +116,7 @@ $wisataTerbaru = mysqli_query($conn, $queryWisata);
     <a href="../wisata/edit_wisata.php?id=<?= $w['id_wisata'] ?>" style="color: #28a745; margin-right: 10px;">
       <i class='bx bxs-edit'></i>
     </a>
-    <a href="pages/wisata/hapus.php?id=<?= $w['id_wisata'] ?>" 
-       onclick="return confirm('Yakin ingin menghapus?')"
-       style="color: #dc3545;">
-      <i class='bx bxs-trash'></i>
+
     </a>
   </td>
 </tr>

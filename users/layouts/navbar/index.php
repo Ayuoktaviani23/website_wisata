@@ -59,8 +59,7 @@ if (isset($_SESSION['user_id'])) {
       <a href="../home/index.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'home') !== false ? 'active' : '' ?>">Beranda</a>
       <a href="../wisata/index.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'wisata') !== false ? 'active' : '' ?>">Wisata</a>
       <a href="../favorite/index.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'favorite') !== false ? 'active' : '' ?>">Favorit</a>
-      <a href="#" class="<?= strpos($_SERVER['REQUEST_URI'], 'kontak.php') !== false ? 'active' : '' ?>">Kontak</a>
-
+    
       <?php if($user && $user['role'] === 'admin'): ?>
           <a href="../../admin/pages/dashboard/dashboard.php"><i class="bi bi-gear-fill"></i> Admin Panel</a>
       <?php endif; ?>

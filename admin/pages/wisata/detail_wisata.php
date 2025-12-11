@@ -26,7 +26,7 @@ $tiket = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tiket_wisata WHER
 $galeri = mysqli_query($conn, "SELECT * FROM galeri_wisata WHERE id_wisata = $id");
 
 
-$galeri_path = "galeri/img/"; // Sesuaikan dengan struktur folder Anda
+$galeri_path = "../galeri/img/"; // Sesuaikan dengan struktur folder Anda
 ?>
 ?>
 

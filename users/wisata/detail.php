@@ -31,7 +31,6 @@ $sql_detail = "SELECT * FROM detail_wisata WHERE id_wisata = '$id_wisata' LIMIT 
 $result_detail = mysqli_query($conn, $sql_detail);
 $detail = mysqli_fetch_assoc($result_detail);
 
-// fallback jika kolom tidak ada
 $full_deskripsi  = isset($detail['full_deskripsi']) ? $detail['full_deskripsi'] : '-';
 $jam_operasional = isset($detail['jam_operasional']) ? $detail['jam_operasional'] : '08:00 - 17:00';
 $durasi_wisata   = isset($detail['durasi_wisata']) ? $detail['durasi_wisata'] : '-';
@@ -78,57 +77,6 @@ $sql_tiket = "SELECT * FROM tiket_wisata WHERE id_wisata = '$id_wisata' LIMIT 1"
 $result_tiket = mysqli_query($conn, $sql_tiket);
 $tiket = mysqli_fetch_assoc($result_tiket);
 
-// ===========================
-// CEK FAVORIT
-// ===========================
-$is_fav = false;
-if(isset($_SESSION['id_user'])) {
-    $id_user = $_SESSION['id_user'];
-    $sql_check_fav = "SELECT * FROM favorite WHERE id_user = '$id_user' AND id_wisata = '$id_wisata'";
-    $result_check = mysqli_query($conn, $sql_check_fav);
-    if(mysqli_num_rows($result_check) > 0) {
-        $is_fav = true;
-    }
-}
-
-// ===========================
-// PROSES TAMBAH/HAPUS FAVORIT
-// ===========================
-if(isset($_POST['action_fav'])) {
-    if(!isset($_SESSION['id_user'])) {
-        echo "<script>alert('Silakan login terlebih dahulu!');</script>";
-        echo "<script>window.location.href = '../../login.php';</script>";
-    } else {
-        $id_user = $_SESSION['id_user'];
-        
-        if($_POST['action_fav'] == 'tambah') {
-            // cek dulu apakah sudah favorit
-            $sql_check = "SELECT * FROM favorite WHERE id_user = '$id_user' AND id_wisata = '$id_wisata'";
-            $result_check = mysqli_query($conn, $sql_check);
-            
-            if(mysqli_num_rows($result_check) == 0) {
-                // tambah ke favorit
-                $sql_tambah = "INSERT INTO favorite (id_user, id_wisata) VALUES ('$id_user', '$id_wisata')";
-                if(mysqli_query($conn, $sql_tambah)) {
-                    echo "<script>alert('Berhasil ditambahkan ke favorit!');</script>";
-                    $is_fav = true;
-                } else {
-                    echo "<script>alert('Gagal menambahkan ke favorit!');</script>";
-                }
-            }
-            
-        } elseif($_POST['action_fav'] == 'hapus') {
-            // hapus dari favorit
-            $sql_hapus = "DELETE FROM favorite WHERE id_user = '$id_user' AND id_wisata = '$id_wisata'";
-            if(mysqli_query($conn, $sql_hapus)) {
-                echo "<script>alert('Berhasil dihapus dari favorit!');</script>";
-                $is_fav = false;
-            } else {
-                echo "<script>alert('Gagal menghapus dari favorit!');</script>";
-            }
-        }
-    }
-}
 
 // ===========================
 // HITUNG JUMLAH FAVORIT
@@ -352,22 +300,7 @@ $rating = isset($wisata['rating']) ? floatval($wisata['rating']) : 0.0;
              alt="<?php echo htmlspecialchars($wisata['nama_wisata']); ?>"
              onerror="this.src='../../admin/pages/galeri/img/default.jpg'">
 
-        <!-- TOMBOL FAVORIT -->
-        <?php if(isset($_SESSION['id_user'])): ?>
-            <!-- Jika sudah login, tampilkan tombol favorit -->
-            <button type="submit" form="favForm" class="fav-btn <?php echo $is_fav ? 'active' : ''; ?>" 
-                    onclick="return confirm('<?php echo $is_fav ? 'Yakin ingin menghapus dari favorit?' : 'Yakin ingin menambahkan ke favorit?'; ?>')"
-                    title="<?php echo $is_fav ? 'Hapus dari favorit' : 'Tambahkan ke favorit'; ?>">
-                ♥
-            </button>
-        <?php else: ?>
-            <!-- Jika belum login, tombol favorit tetap ada tapi redirect ke login -->
-            <button type="button" class="fav-btn" 
-                    onclick="if(confirm('Anda harus login terlebih dahulu. Lanjut ke halaman login?')) { window.location.href='../../login.php'; }"
-                    title="Login untuk menambahkan favorit">
-                ♥
-            </button>
-        <?php endif; ?>
+
 
         <div class="hero-overlay">
             <div class="hero-title"><?php echo htmlspecialchars($wisata['nama_wisata']); ?></div>

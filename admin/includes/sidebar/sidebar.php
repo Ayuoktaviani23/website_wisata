@@ -1,5 +1,5 @@
 <?php
-// Jangan panggil session_start() di sini
+
 if(!defined('BASE_URL')) define('BASE_URL','/pesona_jateng/admin/');
 
 // Ambil data user
@@ -45,7 +45,6 @@ body {margin:0; font-family:'Poppins',sans-serif; background:#f5f6fa;}
 }
 #sidebar.collapsed { width:80px; }
 
-/* Toggle Button */
 .toggle-btn {
     position:absolute; top:15px; right:-15px;
     background:#fff; border-radius:50%; width:30px; height:30px;
@@ -132,23 +131,20 @@ ul li a i { font-size:20px; min-width:25px; text-align:center; }
             <li><a href="<?= BASE_URL ?>pages/dashboard/dashboard.php"><i class='bx bxs-dashboard'></i><span class="text">Dashboard</span></a></li>
             <li><a href="<?= BASE_URL ?>pages/wisata/wisata.php"><i class='bx bxs-map'></i><span class="text">Wisata</span><span class="badge">5</span></a></li>
             <li><a href="<?= BASE_URL ?>pages/pengguna/pengguna.php"><i class='bx bxs-group'></i><span class="text">Pengguna</span><span class="badge">12</span></a></li>
-            <li><a href="#"><i class='bx bxs-doughnut-chart'></i><span class="text">Analytics</span></a></li>
+        
         </ul>
 
         <div class="menu-divider"></div>
 
         <div class="menu-section">Konten</div>
         <ul class="middle">
-            <li><a href="#"><i class='bx bxs-message-dots'></i><span class="text">Pesan</span><span class="badge">3</span></a></li>
-            <li><a href="#"><i class='bx bxs-calendar'></i><span class="text">Event</span></a></li>
+    
             <li><a href="<?= BASE_URL ?>pages/galeri/galeri.php"><i class='bx bxs-image'></i><span class="text">Galeri</span></a></li>
         </ul>
 
         <div class="menu-divider"></div>
 
-        <ul class="bottom">
-            <li><a href="#"><i class='bx bxs-cog'></i><span class="text">Pengaturan</span></a></li>
-        </ul>
+    
     </div>
 
     <!-- User Section -->
@@ -161,11 +157,7 @@ ul li a i { font-size:20px; min-width:25px; text-align:center; }
             </div>
         </div>
         
-        <div class="user-actions">
-            <a href="<?= BASE_URL ?>pages/profil/profil.php" class="user-action-btn profile-btn" title="Profil">
-                <i class='bx bxs-user'></i>
-                <span>Profil</span>
-            </a>
+
           <a href="<?= BASE_URL ?>includes/sidebar/logout.php" class="user-action-btn logout-btn" title="Keluar" onclick="return confirm('Yakin ingin logout?')">
     <i class='bx bxs-log-out'></i>
     <span>Keluar</span>
